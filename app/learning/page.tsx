@@ -308,6 +308,14 @@ export default function LearningPage() {
   const [categoryEditThumbnailFile, setCategoryEditThumbnailFile] = useState<File | null>(null);
   const [savingCategory, setSavingCategory] = useState(false);
 
+  // Delete confirmation modals
+  const [deleteConfirmModal, setDeleteConfirmModal] = useState<{
+    type: 'stage' | 'category' | 'resource';
+    id: string;
+    name: string;
+  } | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
   // Form data
   const [stageName, setStageName] = useState('');
   const [stageThumbnailFile, setStageThumbnailFile] = useState<File | null>(null);
@@ -322,6 +330,7 @@ export default function LearningPage() {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [uploadStep, setUploadStep] = useState<'idle' | 'video' | 'thumbnail' | 'resource' | 'complete'>('idle');
 
   useEffect(() => {
     loadStages();
@@ -548,6 +557,7 @@ export default function LearningPage() {
     e.preventDefault();
     try {
       setUploading(true);
+      setUploadStep('idle');
 
       const selectedStageName = stages.find(s => s._id === selectedStage)?.name || '';
       const selectedCategoryName = categories.find(c => c._id === selectedCategory)?.name || '';
@@ -557,6 +567,8 @@ export default function LearningPage() {
 
       // Upload video
       if (videoFile) {
+        setUploadStep('video');
+
         const videoFormData = new FormData();
         videoFormData.append('video', videoFile);
         videoFormData.append('stage', selectedStageName);
@@ -568,11 +580,16 @@ export default function LearningPage() {
         });
 
         const videoData = await videoRes.json();
+        if (!videoRes.ok) {
+          throw new Error(videoData.message || 'Failed to upload video');
+        }
         videoKey = videoData.data.key;
       }
 
       // Upload thumbnail
       if (thumbnailFile) {
+        setUploadStep('thumbnail');
+
         const thumbnailFormData = new FormData();
         thumbnailFormData.append('thumbnail', thumbnailFile);
         thumbnailFormData.append('stage', selectedStageName);
@@ -584,10 +601,15 @@ export default function LearningPage() {
         });
 
         const thumbnailData = await thumbnailRes.json();
+        if (!thumbnailRes.ok) {
+          throw new Error(thumbnailData.message || 'Failed to upload thumbnail');
+        }
         thumbnailKey = thumbnailData.data.key;
       }
 
       // Create resource
+      setUploadStep('resource');
+
       const res = await authorizedFetch(`${API_BASE_URL}/api/upload/resource`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -600,15 +622,23 @@ export default function LearningPage() {
         })
       });
 
-      if (res.ok) {
-        setResourceName('');
-        setVideoFile(null);
-        setThumbnailFile(null);
-        setShowResourceModal(false);
-        loadResources(selectedCategory);
+      const resData = await res.json();
+      if (!res.ok) {
+        throw new Error(resData.message || 'Failed to create resource');
       }
+
+      setUploadStep('complete');
+
+      setResourceName('');
+      setVideoFile(null);
+      setThumbnailFile(null);
+      setShowResourceModal(false);
+      setUploadStep('idle');
+      loadResources(selectedCategory);
     } catch (err) {
       console.error(err);
+      const message = err instanceof Error ? err.message : 'Error creating resource';
+      alert(message);
     } finally {
       setUploading(false);
     }
@@ -755,64 +785,53 @@ export default function LearningPage() {
   const getStageName = (stageId: string) => stages.find(s => s._id === stageId)?.name || '';
   const getCategoryName = (catId: string) => categories.find(c => c._id === catId)?.name || '';
 
-  async function handleDeleteStage(stageId: string) {
-    if (!confirm('Are you sure you want to delete this stage? It must have no categories.')) return;
+  async function confirmDelete() {
+    if (!deleteConfirmModal) return;
 
     try {
-      const res = await authorizedFetch(`${API_BASE_URL}/api/upload/stage/${stageId}`, {
-        method: 'DELETE'
-      });
+      setDeleting(true);
+      let res: Response;
 
-      const data = await res.json();
-
-      if (res.ok) {
-        loadStages();
-      } else {
-        alert(data.message || 'Failed to delete stage');
+      switch (deleteConfirmModal.type) {
+        case 'stage':
+          res = await authorizedFetch(`${API_BASE_URL}/api/upload/stage/${deleteConfirmModal.id}`, {
+            method: 'DELETE'
+          });
+          break;
+        case 'category':
+          res = await authorizedFetch(`${API_BASE_URL}/api/upload/category/${deleteConfirmModal.id}`, {
+            method: 'DELETE'
+          });
+          break;
+        case 'resource':
+          res = await authorizedFetch(`${API_BASE_URL}/api/upload/resource/${deleteConfirmModal.id}`, {
+            method: 'DELETE'
+          });
+          break;
       }
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        throw new Error(data.message || `Failed to delete ${deleteConfirmModal.type}`);
+      }
+
+      // Reload appropriate data
+      if (deleteConfirmModal.type === 'stage') {
+        await loadStages();
+      } else if (deleteConfirmModal.type === 'category') {
+        await loadCategories(selectedStage);
+      } else if (deleteConfirmModal.type === 'resource') {
+        await loadResources(selectedCategory);
+      }
+
+      setDeleteConfirmModal(null);
     } catch (err) {
       console.error(err);
-      alert('Error deleting stage');
-    }
-  }
-
-  async function handleDeleteCategory(categoryId: string) {
-    if (!confirm('Are you sure you want to delete this category? It must have no resources.')) return;
-
-    try {
-      const res = await authorizedFetch(`${API_BASE_URL}/api/upload/category/${categoryId}`, {
-        method: 'DELETE'
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        loadCategories(selectedStage);
-      } else {
-        alert(data.message || 'Failed to delete category');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error deleting category');
-    }
-  }
-
-  async function handleDeleteResource(resourceId: string) {
-    if (!confirm('Are you sure you want to delete this resource?')) return;
-
-    try {
-      const res = await authorizedFetch(`${API_BASE_URL}/api/upload/resource/${resourceId}`, {
-        method: 'DELETE'
-      });
-
-      if (res.ok) {
-        loadResources(selectedCategory);
-      } else {
-        alert('Failed to delete resource');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error deleting resource');
+      const message = err instanceof Error ? err.message : `Error deleting ${deleteConfirmModal.type}`;
+      alert(message);
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -1016,7 +1035,7 @@ export default function LearningPage() {
                             Edit
                           </button>
                           <button
-                            onClick={() => handleDeleteStage(stage._id)}
+                            onClick={() => setDeleteConfirmModal({ type: 'stage', id: stage._id, name: stage.name })}
                             className="text-red-600 hover:text-red-900"
                           >
                             Delete
@@ -1108,7 +1127,7 @@ export default function LearningPage() {
                             Edit
                           </button>
                           <button
-                            onClick={() => handleDeleteCategory(category._id)}
+                            onClick={() => setDeleteConfirmModal({ type: 'category', id: category._id, name: category.name })}
                             className="text-red-600 hover:text-red-900"
                           >
                             Delete
@@ -1243,7 +1262,7 @@ export default function LearningPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                         <button
-                          onClick={() => handleDeleteResource(resource._id)}
+                          onClick={() => setDeleteConfirmModal({ type: 'resource', id: resource._id, name: resource.name })}
                           className="text-red-600 hover:text-red-900"
                         >
                           Delete
@@ -1552,8 +1571,8 @@ export default function LearningPage() {
 
       {/* Resource Modal */}
       {showResourceModal && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-lg w-full">
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Create New Learning Resource</h3>
             <form onSubmit={handleCreateResource}>
               <div className="mb-4">
@@ -1564,6 +1583,7 @@ export default function LearningPage() {
                   onChange={(e) => setResourceName(e.target.value)}
                   className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   required
+                  disabled={uploading}
                 />
               </div>
               <div className="mb-4">
@@ -1574,9 +1594,15 @@ export default function LearningPage() {
                   type="file"
                   accept="video/*"
                   onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 disabled:opacity-50"
                   required
+                  disabled={uploading}
                 />
+                {videoFile && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    Selected: {videoFile.name} ({(videoFile.size / 1024 / 1024).toFixed(2)} MB)
+                  </p>
+                )}
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -1586,23 +1612,121 @@ export default function LearningPage() {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setThumbnailFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 disabled:opacity-50"
+                  disabled={uploading}
                 />
+                {thumbnailFile && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    Selected: {thumbnailFile.name} ({(thumbnailFile.size / 1024 / 1024).toFixed(2)} MB)
+                  </p>
+                )}
               </div>
+
+              {/* Upload Status */}
+              {uploading && (
+                <div className="mb-4 space-y-2 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                  <div className="flex items-center gap-2 text-sm font-medium text-indigo-900">
+                    <Spinner className="h-4 w-4 text-indigo-600" />
+                    <span>Uploading resource...</span>
+                  </div>
+
+                  <div className="space-y-2 pl-6">
+                    {videoFile && (
+                      <div className="flex items-center gap-2 text-sm">
+                        {uploadStep === 'video' ? (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
+                            <span className="text-indigo-700">Uploading video...</span>
+                          </>
+                        ) : (uploadStep === 'thumbnail' || uploadStep === 'resource' || uploadStep === 'complete') ? (
+                          <>
+                            <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                            <span className="text-green-700">Video uploaded</span>
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                            <span className="text-gray-500">Video pending</span>
+                          </>
+                        )}
+                      </div>
+                    )}
+
+                    {thumbnailFile && (
+                      <div className="flex items-center gap-2 text-sm">
+                        {uploadStep === 'thumbnail' ? (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
+                            <span className="text-indigo-700">Uploading thumbnail...</span>
+                          </>
+                        ) : (uploadStep === 'resource' || uploadStep === 'complete') ? (
+                          <>
+                            <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                            <span className="text-green-700">Thumbnail uploaded</span>
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                            <span className="text-gray-500">Thumbnail pending</span>
+                          </>
+                        )}
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-2 text-sm">
+                      {uploadStep === 'resource' ? (
+                        <>
+                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
+                          <span className="text-indigo-700">Creating resource...</span>
+                        </>
+                      ) : uploadStep === 'complete' ? (
+                        <>
+                          <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-green-700">Resource created</span>
+                        </>
+                      ) : (
+                        <>
+                          <div className="w-1.5 h-1.5 rounded-full bg-gray-400" />
+                          <span className="text-gray-500">Resource pending</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="flex gap-3 justify-end">
                 <button
                   type="button"
-                  onClick={() => setShowResourceModal(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  onClick={() => {
+                    if (!uploading) {
+                      setShowResourceModal(false);
+                      setResourceName('');
+                      setVideoFile(null);
+                      setThumbnailFile(null);
+                      setUploadStep('idle');
+                    }
+                  }}
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={uploading}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={uploading}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
-                  {uploading ? 'Uploading...' : 'Create'}
+                  {uploading && (
+                    <Spinner className="h-4 w-4 text-white" />
+                  )}
+                  {uploading ? 'Uploading...' : 'Create Resource'}
                 </button>
               </div>
             </form>
@@ -1648,6 +1772,65 @@ export default function LearningPage() {
               <p className="text-sm text-gray-600 break-all">
                 <span className="font-medium">URL:</span> {viewMediaModal.url}
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmModal && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  Delete {deleteConfirmModal.type}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Are you sure you want to delete <span className="font-semibold text-gray-900">{deleteConfirmModal.name}</span>?
+                  {deleteConfirmModal.type === 'stage' && (
+                    <span className="block mt-1 text-red-600">
+                      Note: The stage must have no categories.
+                    </span>
+                  )}
+                  {deleteConfirmModal.type === 'category' && (
+                    <span className="block mt-1 text-red-600">
+                      Note: The category must have no resources.
+                    </span>
+                  )}
+                  {deleteConfirmModal.type === 'resource' && (
+                    <span className="block mt-1 text-gray-500">
+                      This action cannot be undone.
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-3 justify-end mt-6">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirmModal(null)}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDelete}
+                disabled={deleting}
+                className="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-medium hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                {deleting && (
+                  <Spinner className="h-4 w-4 text-white" />
+                )}
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
             </div>
           </div>
         </div>

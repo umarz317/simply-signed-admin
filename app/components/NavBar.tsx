@@ -56,9 +56,6 @@ export function NavBar() {
             <span className="text-sm font-semibold uppercase tracking-wide text-slate-500">Simply Signed</span>
             <span className="text-base font-semibold text-slate-900">Admin Console</span>
           </Link>
-          <span className="hidden items-center rounded-full border border-sky-100 bg-sky-50 px-2.5 py-1 text-xs font-medium uppercase tracking-wide text-sky-600 sm:inline-flex">
-            Beta
-          </span>
         </div>
 
         <nav className="hidden items-center gap-1 rounded-full border border-transparent bg-white/80 p-1 shadow-sm shadow-slate-200/60 lg:flex">
@@ -117,7 +114,7 @@ export function NavBar() {
       <div
         className={
           'border-t border-slate-200 bg-white/95 px-4 py-3 shadow-sm shadow-slate-200 transition-all duration-200 lg:hidden ' +
-          (mobileOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0')
+          (mobileOpen ? 'block opacity-100' : 'hidden opacity-0')
         }
       >
         <nav className="flex flex-col gap-1">

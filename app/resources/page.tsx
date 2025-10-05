@@ -64,8 +64,7 @@ export default function ResourcesPage() {
   const loadCategories = useCallback(async (stageId: string) => {
     try {
       setCategoriesLoading(true);
-      const data = await getCategoriesByStage(stageId);
-      const categoryList: Category[] = data.categories || [];
+      const categoryList = await getCategoriesByStage(stageId);
       setCategories(categoryList);
       setCategorySearchTerm('');
 
@@ -116,7 +115,6 @@ export default function ResourcesPage() {
           data = await getAllPrebuildAvatars();
           break;
       }
-      console.log('Fetched resources:', data);
       setResources(data);
       setError(null);
     } catch (err) {

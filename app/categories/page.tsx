@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { getCategoriesByStage, getStages, Stage } from '@/lib/api';
+import { getCategoriesByStage, getStages, Stage, Category } from '@/lib/api';
 
 export default function CategoriesPage() {
   const searchParams = useSearchParams();
@@ -10,46 +10,52 @@ export default function CategoriesPage() {
 
   const [stages, setStages] = useState<Stage[]>([]);
   const [selectedStage, setSelectedStage] = useState<string>(stageIdParam || '');
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    loadStages();
-  }, []);
-
-  useEffect(() => {
-    if (selectedStage) {
-      loadCategories(selectedStage);
-    }
-  }, [selectedStage]);
-
-  async function loadStages() {
+  const loadStages = useCallback(async () => {
     try {
       const data = await getStages();
       setStages(data);
-      if (!selectedStage && data.length > 0) {
-        setSelectedStage(data[0]._id);
+      if (data.length > 0) {
+        setSelectedStage((current) => {
+          if (current) {
+            return current;
+          }
+          return data[0]._id;
+        });
+      } else {
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
     }
-  }
+  }, []);
 
-  async function loadCategories(stageId: string) {
+  const loadCategories = useCallback(async (stageId: string) => {
     try {
       setLoading(true);
       const data = await getCategoriesByStage(stageId);
-      console.log('Fetched categories:', data);
-      setCategories(data.categories || []);
+      setCategories(data);
       setError(null);
     } catch (err) {
       setError('Failed to load categories');
       console.error(err);
+      setCategories([]);
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    void loadStages();
+  }, [loadStages]);
+
+  useEffect(() => {
+    if (selectedStage) {
+      void loadCategories(selectedStage);
+    }
+  }, [selectedStage, loadCategories]);
 
   return (
     <div className="px-4 sm:px-0">

@@ -97,10 +97,6 @@ export interface Resource {
   order?: number;
 }
 
-type CategoriesResponse = {
-  categories?: Category[];
-};
-
 // Stages API
 export async function getStages(): Promise<Stage[]> {
   const res = await authorizedFetch(`${API_URL}/api/data/getAllStages`);
@@ -120,13 +116,26 @@ export async function getStage(id: string): Promise<Stage> {
 }
 
 // Categories API
-export async function getCategoriesByStage(stageId: string): Promise<CategoriesResponse> {
+export async function getCategoriesByStage(stageId: string): Promise<Category[]> {
   const res = await authorizedFetch(`${API_URL}/api/data/getAllDataByStageId/${stageId}`);
   if (!res.ok) {
     throw new Error('Failed to fetch categories');
   }
   const json = await res.json();
-  return json.data || json;
+  const payload = json?.data ?? json;
+
+  if (Array.isArray(payload)) {
+    return payload as Category[];
+  }
+
+  if (payload && typeof payload === 'object') {
+    const categories = (payload as { categories?: unknown }).categories;
+    if (Array.isArray(categories)) {
+      return categories as Category[];
+    }
+  }
+
+  return [];
 }
 
 // Resources API
@@ -194,11 +203,14 @@ export async function getAllPrebuildAvatars(): Promise<Resource[]> {
 }
 
 // Stats API
-export async function getStats(): Promise<any> {
+export type StatsResponse = Record<string, unknown>;
+
+export async function getStats(): Promise<StatsResponse> {
   const res = await authorizedFetch(`${API_URL}/api/data/getStats`);
   if (!res.ok) {
     throw new Error('Failed to fetch stats');
   }
   const json = await res.json();
-  return json.data || json;
+  const payload = json?.data ?? json;
+  return (payload ?? {}) as StatsResponse;
 }

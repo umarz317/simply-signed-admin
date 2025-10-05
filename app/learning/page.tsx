@@ -379,8 +379,7 @@ export default function LearningPage() {
   async function loadCategories(stageId: string) {
     try {
       setCategoriesLoading(true);
-      const data = await getCategoriesByStage(stageId);
-      const categoryList = data.categories || [];
+      const categoryList = await getCategoriesByStage(stageId);
       setCategories(categoryList);
       if (categoryList.length > 0) {
         setSelectedCategory((current) => {
@@ -408,13 +407,8 @@ export default function LearningPage() {
   async function loadResources(categoryId: string) {
     try {
       setResourcesLoading(true);
-      const data: any = await getResourcesByCategory(categoryId);
-      const resourceList = Array.isArray(data)
-        ? data
-        : Array.isArray(data?.resources)
-        ? data.resources
-        : [];
-      setResources(resourceList);
+  const resourcesData = await getResourcesByCategory(categoryId);
+  setResources(Array.isArray(resourcesData) ? resourcesData : []);
     } catch (err) {
       console.error(err);
       setResources([]);

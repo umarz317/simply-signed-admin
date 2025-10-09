@@ -42,6 +42,9 @@ export async function signIn(credentials: SignInCredentials): Promise<SignInSucc
     const message = data?.message ?? data?.error ?? 'Failed to sign in';
     throw new Error(message);
   }
+  if (data?.user?.isAdmin === false) {
+    throw new Error('Access denied. You do not have admin privileges.');
+  }
 
   return {
     token: data.token,

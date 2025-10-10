@@ -67,9 +67,9 @@ export default function Home() {
   type ChartDatum = { name: string; value: number; color: string };
 
   const genderData: ChartDatum[] = (stats.genderDistribution ?? []).map((item: DistributionBucket) => ({
-    name: item._id === 'male' ? 'Male' : item._id === 'female' ? 'Female' : item._id === 'huggy' ? 'Huggy' : 'Unknown',
+    name: item._id === 'boy' ? 'Boy' : item._id === 'girl' ? 'Girl' : item._id === 'huggy' ? 'Huggy' : 'Unknown',
     value: item.count,
-    color: item._id === 'male' ? '#3b82f6' : item._id === 'female' ? '#ec4899' : item._id === 'huggy' ? '#8b5cf6' : '#6b7280'
+    color: item._id === 'boy' ? '#3b82f6' : item._id === 'girl' ? '#ec4899' : item._id === 'huggy' ? '#8b5cf6' : '#6b7280'
   }));
 
   // Prepare age distribution data

@@ -8,6 +8,7 @@ import { clearToken } from '@/lib/auth';
 const navigationLinks = [
   { name: 'Home', href: '/' },
   { name: 'Learning', href: '/learning' },
+  { name: 'Quick Learning', href: '/quick-learning' },
   { name: 'Other Resources', href: '/resources' },
 ];
 

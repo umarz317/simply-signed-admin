@@ -93,7 +93,7 @@ export interface Category {
 export interface Resource {
   _id: string;
   name: string;
-  type: 'learning' | 'avatar' | 'ui' | 'huggy' | 'prebuildAvatar';
+  type: 'learning' | 'avatar' | 'ui' | 'huggy' | 'prebuildAvatar' | 'quicklearning';
   url?: string;
   thumbnail?: string;
   category?: string;
@@ -216,4 +216,24 @@ export async function getStats(): Promise<StatsResponse> {
   const json = await res.json();
   const payload = json?.data ?? json;
   return (payload ?? {}) as StatsResponse;
+}
+
+// Quick Learning API
+export interface QuickLearningData {
+  stage: Stage & {
+    pathAssets?: Record<string, Resource[]>;
+  };
+  categories: (Category & {
+    resources: Resource[];
+    pathAssets?: Record<string, Resource[]>;
+  })[];
+}
+
+export async function getAllQuickLearning(): Promise<QuickLearningData> {
+  const res = await authorizedFetch(`${API_URL}/api/data/getAllQuickLearningData`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch quick learning data');
+  }
+  const json = await res.json();
+  return json.data || json;
 }

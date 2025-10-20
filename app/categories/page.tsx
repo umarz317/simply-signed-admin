@@ -69,7 +69,7 @@ export default function CategoriesPage() {
             id="stage"
             value={selectedStage}
             onChange={(e) => setSelectedStage(e.target.value)}
-            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-sky-400 focus:border-[#00baff] sm:text-sm rounded-md"
           >
             {stages.map((stage) => (
               <option key={stage._id} value={stage._id}>
@@ -135,7 +135,7 @@ export default function CategoriesPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <a
                         href={`/resources?category=${category._id}`}
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="text-[#00baff] hover:text-[#0099cc]"
                       >
                         View Resources
                       </a>

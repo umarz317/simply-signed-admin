@@ -43,7 +43,7 @@ export function AdminShell({ children }: AdminShellProps) {
   if (checking) {
     return (
       <div className="flex h-screen flex-col items-center justify-center gap-4 bg-gray-50">
-        <Spinner className="h-10 w-10 text-indigo-600" />
+        <Spinner className="h-10 w-10 text-[#00baff]" />
         <p className="text-sm font-medium text-gray-600">Verifying admin access…</p>
       </div>
     );

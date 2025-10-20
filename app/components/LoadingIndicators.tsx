@@ -6,7 +6,7 @@ export type SpinnerProps = {
   className?: string;
 };
 
-export const Spinner: FC<SpinnerProps> = ({ className = 'h-4 w-4 text-indigo-600' }) => (
+export const Spinner: FC<SpinnerProps> = ({ className = 'h-4 w-4 text-[#00baff]' }) => (
   <svg
     className={`animate-spin ${className}`}
     xmlns="http://www.w3.org/2000/svg"

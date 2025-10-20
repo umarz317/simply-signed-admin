@@ -196,7 +196,7 @@ export default function ResourcesPage() {
             onClick={() => { setViewMode('category'); }}
             className={`px-4 py-2 text-sm font-medium rounded-md ${
               viewMode === 'category'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#00baff] text-white'
                 : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
             }`}
           >
@@ -206,7 +206,7 @@ export default function ResourcesPage() {
             onClick={() => setViewMode('avatars')}
             className={`px-4 py-2 text-sm font-medium rounded-md ${
               viewMode === 'avatars'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#00baff] text-white'
                 : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
             }`}
           >
@@ -216,7 +216,7 @@ export default function ResourcesPage() {
             onClick={() => setViewMode('prebuild')}
             className={`px-4 py-2 text-sm font-medium rounded-md ${
               viewMode === 'prebuild'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#00baff] text-white'
                 : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
             }`}
           >
@@ -231,7 +231,7 @@ export default function ResourcesPage() {
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 Stage
-                {stagesLoading && <Spinner className="h-4 w-4 text-indigo-500" />}
+                {stagesLoading && <Spinner className="h-4 w-4 text-[#00baff]" />}
               </div>
               <div className="relative w-40">
                 <input
@@ -240,7 +240,7 @@ export default function ResourcesPage() {
                   value={stageSearchTerm}
                   onChange={(event) => setStageSearchTerm(event.target.value)}
                   disabled={stagesLoading || stages.length === 0}
-                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-gray-100"
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 text-sm focus:border-[#00baff] focus:outline-none focus:ring-1 focus:ring-sky-400 disabled:cursor-not-allowed disabled:bg-gray-100"
                 />
                 {stageSearchTerm && (
                   <button
@@ -280,8 +280,8 @@ export default function ResourcesPage() {
                       }}
                       className={`flex w-full items-center justify-between gap-3 rounded-md border px-3 py-2 text-left text-sm transition ${
                         isSelected
-                          ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                          : 'border-gray-200 hover:border-indigo-200 hover:bg-indigo-50/40'
+                          ? 'border-[#00baff] bg-sky-50 text-[#0099cc] shadow-sm'
+                          : 'border-gray-200 hover:border-sky-200 hover:bg-sky-50/40'
                       }`}
                     >
                       <span className="font-medium truncate">{stage.name}</span>
@@ -303,7 +303,7 @@ export default function ResourcesPage() {
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 Category
-                {categoriesLoading && <Spinner className="h-4 w-4 text-indigo-500" />}
+                {categoriesLoading && <Spinner className="h-4 w-4 text-[#00baff]" />}
               </div>
               <div className="relative w-40">
                 <input
@@ -312,7 +312,7 @@ export default function ResourcesPage() {
                   value={categorySearchTerm}
                   onChange={(event) => setCategorySearchTerm(event.target.value)}
                   disabled={!selectedStage || categoriesLoading || categories.length === 0}
-                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-gray-100"
+                  className="w-full rounded-md border border-gray-200 px-3 py-1.5 text-sm focus:border-[#00baff] focus:outline-none focus:ring-1 focus:ring-sky-400 disabled:cursor-not-allowed disabled:bg-gray-100"
                 />
                 {categorySearchTerm && (
                   <button
@@ -347,8 +347,8 @@ export default function ResourcesPage() {
                       onClick={() => setCategoryId(category._id)}
                       className={`flex w-full items-center justify-between gap-3 rounded-md border px-3 py-2 text-left text-sm transition ${
                         isSelected
-                          ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                          : 'border-gray-200 hover:border-indigo-200 hover:bg-indigo-50/40'
+                          ? 'border-[#00baff] bg-sky-50 text-[#0099cc] shadow-sm'
+                          : 'border-gray-200 hover:border-sky-200 hover:bg-sky-50/40'
                       }`}
                     >
                       <span className="font-medium truncate">{category.name}</span>
@@ -465,7 +465,7 @@ export default function ResourcesPage() {
                               setMediaLoading(true);
                               setViewMediaModal({ type, url: mediaUrl });
                             }}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-[#00baff] hover:text-[#0099cc]"
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -484,7 +484,7 @@ export default function ResourcesPage() {
                               setMediaLoading(true);
                               setViewMediaModal({ type: 'image', url: resource.thumbnail });
                             }}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-[#00baff] hover:text-[#0099cc]"
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -529,7 +529,7 @@ export default function ResourcesPage() {
             <div className="p-6">
               {mediaLoading && (
                 <div className="flex h-[70vh] w-full items-center justify-center">
-                  <Spinner className="h-8 w-8 text-indigo-600" />
+                  <Spinner className="h-8 w-8 text-[#00baff]" />
                 </div>
               )}
               {viewMediaModal.type === 'video' ? (

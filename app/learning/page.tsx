@@ -49,7 +49,7 @@ const StageSelector = ({
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium text-gray-700">Stage</span>
-          {loading && <Spinner className="h-4 w-4 text-indigo-600" />}
+          {loading && <Spinner className="h-4 w-4 text-[#00baff]" />}
         </div>
         <div className="relative w-full sm:w-64">
           <input
@@ -57,7 +57,7 @@ const StageSelector = ({
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search stages…"
-            className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400"
+            className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm shadow-sm focus:border-[#00baff] focus:outline-none focus:ring-1 focus:ring-sky-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400"
             disabled={loading && stages.length === 0}
           />
           {searchTerm && (
@@ -93,10 +93,10 @@ const StageSelector = ({
                 key={stage._id}
                 type="button"
                 onClick={() => onSelect(stage._id)}
-                className={`rounded-lg border bg-white p-4 text-left shadow-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                className={`rounded-lg border bg-white p-4 text-left shadow-sm transition focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 ${
                   isSelected
-                    ? 'border-indigo-500 ring-2 ring-indigo-200'
-                    : 'border-gray-200 hover:border-indigo-300'
+                    ? 'border-[#00baff] ring-2 ring-sky-200'
+                    : 'border-gray-200 hover:border-sky-300'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ const StageSelector = ({
                     <p className="truncate text-xs text-gray-500 font-mono">{stage._id}</p>
                   </div>
                   {isSelected && (
-                    <span className="text-xs font-medium text-indigo-600">Selected</span>
+                    <span className="text-xs font-medium text-[#00baff]">Selected</span>
                   )}
                 </div>
               </button>
@@ -127,7 +127,7 @@ const StageSelector = ({
             <button
               type="button"
               onClick={() => onSearchChange('')}
-              className="text-xs font-medium text-indigo-600 hover:text-indigo-700"
+              className="text-xs font-medium text-[#00baff] hover:text-[#0099cc]"
             >
               Clear search
             </button>
@@ -175,7 +175,7 @@ const CategorySelector = ({
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium text-gray-700">Category</span>
-          {stageSelected && loading && <Spinner className="h-4 w-4 text-indigo-600" />}
+          {stageSelected && loading && <Spinner className="h-4 w-4 text-[#00baff]" />}
         </div>
         <div className="relative w-full sm:w-64">
           <input
@@ -183,7 +183,7 @@ const CategorySelector = ({
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search categories…"
-            className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400"
+            className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-sm shadow-sm focus:border-[#00baff] focus:outline-none focus:ring-1 focus:ring-sky-400 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400"
             disabled={!stageSelected || (loading && categories.length === 0)}
           />
           {searchTerm && (
@@ -223,10 +223,10 @@ const CategorySelector = ({
                 key={category._id}
                 type="button"
                 onClick={() => onSelect(category._id)}
-                className={`rounded-lg border bg-white p-4 text-left shadow-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                className={`rounded-lg border bg-white p-4 text-left shadow-sm transition focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 ${
                   isSelected
-                    ? 'border-indigo-500 ring-2 ring-indigo-200'
-                    : 'border-gray-200 hover:border-indigo-300'
+                    ? 'border-[#00baff] ring-2 ring-sky-200'
+                    : 'border-gray-200 hover:border-sky-300'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -239,7 +239,7 @@ const CategorySelector = ({
                     <p className="truncate text-xs text-gray-500 font-mono">{category._id}</p>
                   </div>
                   {isSelected && (
-                    <span className="text-xs font-medium text-indigo-600">Selected</span>
+                    <span className="text-xs font-medium text-[#00baff]">Selected</span>
                   )}
                 </div>
               </button>
@@ -257,7 +257,7 @@ const CategorySelector = ({
             <button
               type="button"
               onClick={() => onSearchChange('')}
-              className="text-xs font-medium text-indigo-600 hover:text-indigo-700"
+              className="text-xs font-medium text-[#00baff] hover:text-[#0099cc]"
             >
               Clear search
             </button>
@@ -917,7 +917,7 @@ export default function LearningPage() {
                 type="button"
                 onClick={quickAction.onClick}
                 disabled={quickAction.disabled}
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-indigo-300"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#00baff] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#0099cc] focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-sky-300"
               >
                 <svg
                   className="h-4 w-4"
@@ -961,8 +961,8 @@ export default function LearningPage() {
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 rounded-full px-4 py-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 sm:flex-none ${
-                    isActive ? 'bg-white text-indigo-600 shadow-sm' : 'hover:text-gray-700'
+                  className={`flex-1 rounded-full px-4 py-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 sm:flex-none ${
+                    isActive ? 'bg-white text-[#00baff] shadow-sm' : 'hover:text-gray-700'
                   }`}
                 >
                   {tab === 'stages' && 'Stages'}
@@ -1024,7 +1024,7 @@ export default function LearningPage() {
                         <div className="flex justify-end gap-4">
                           <button
                             onClick={() => openStageEditModal(stage)}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-[#00baff] hover:text-[#00baff]"
                           >
                             Edit
                           </button>
@@ -1064,7 +1064,7 @@ export default function LearningPage() {
             <button
               onClick={() => setShowCategoryModal(true)}
               disabled={!selectedStage || stagesLoading}
-              className="self-start rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="self-start rounded-md bg-[#00baff] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#0099cc] disabled:cursor-not-allowed disabled:opacity-50"
             >
               + Add Category
             </button>
@@ -1116,7 +1116,7 @@ export default function LearningPage() {
                         <div className="flex justify-end gap-4">
                           <button
                             onClick={() => openCategoryEditModal(category)}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-[#00baff] hover:text-[#00baff]"
                           >
                             Edit
                           </button>
@@ -1169,7 +1169,7 @@ export default function LearningPage() {
             <button
               onClick={() => setShowResourceModal(true)}
               disabled={!selectedStage || !selectedCategory || categoriesLoading}
-              className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-md bg-[#00baff] px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#0099cc] disabled:cursor-not-allowed disabled:opacity-50"
             >
               + Add Resource
             </button>
@@ -1225,7 +1225,7 @@ export default function LearningPage() {
                               if (!mediaUrl) return;
                               setViewMediaModal({ type: 'video', url: mediaUrl });
                             }}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-[#00baff] hover:text-[#00baff]"
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -1243,7 +1243,7 @@ export default function LearningPage() {
                               if (!resource.thumbnail) return;
                               setViewMediaModal({ type: 'thumbnail', url: resource.thumbnail });
                             }}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-[#00baff] hover:text-[#00baff]"
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -1285,7 +1285,7 @@ export default function LearningPage() {
                   type="text"
                   value={stageEditName}
                   onChange={(e) => setStageEditName(e.target.value)}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
                   required
                 />
               </div>
@@ -1298,7 +1298,7 @@ export default function LearningPage() {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setStageEditThumbnailFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100"
                 />
                 {stageBeingEdited.thumbnail && (
                   <div className="mt-2 flex items-center gap-3">
@@ -1326,7 +1326,7 @@ export default function LearningPage() {
                 <button
                   type="submit"
                   disabled={savingStage}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-[#00baff] text-white rounded-md hover:bg-[#0099cc] disabled:opacity-50"
                 >
                   {savingStage ? 'Saving…' : 'Save Changes'}
                 </button>
@@ -1348,7 +1348,7 @@ export default function LearningPage() {
                   type="text"
                   value={categoryEditName}
                   onChange={(e) => setCategoryEditName(e.target.value)}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
                   required
                 />
               </div>
@@ -1361,7 +1361,7 @@ export default function LearningPage() {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setCategoryEditThumbnailFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100"
                 />
                 {categoryBeingEdited.thumbnail && (
                   <div className="mt-2 flex items-center gap-3">
@@ -1389,7 +1389,7 @@ export default function LearningPage() {
                 <button
                   type="submit"
                   disabled={savingCategory}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-[#00baff] text-white rounded-md hover:bg-[#0099cc] disabled:opacity-50"
                 >
                   {savingCategory ? 'Saving…' : 'Save Changes'}
                 </button>
@@ -1411,7 +1411,7 @@ export default function LearningPage() {
                   type="text"
                   value={stageName}
                   onChange={(e) => setStageName(e.target.value)}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
                   required
                 />
               </div>
@@ -1424,7 +1424,7 @@ export default function LearningPage() {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setStageThumbnailFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100"
                   required
                 />
               </div>
@@ -1504,7 +1504,7 @@ export default function LearningPage() {
                 <button
                   type="submit"
                   disabled={uploading}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-[#00baff] text-white rounded-md hover:bg-[#0099cc] disabled:opacity-50"
                 >
                   {uploading ? 'Creating...' : 'Create'}
                 </button>
@@ -1526,7 +1526,7 @@ export default function LearningPage() {
                   type="text"
                   value={categoryName}
                   onChange={(e) => setCategoryName(e.target.value)}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
                   required
                 />
               </div>
@@ -1535,7 +1535,7 @@ export default function LearningPage() {
                 <select
                   value={selectedStage}
                   onChange={(e) => setSelectedStage(e.target.value)}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
                 >
                   {stages.map((stage) => (
                     <option key={stage._id} value={stage._id}>{stage.name}</option>
@@ -1553,7 +1553,7 @@ export default function LearningPage() {
                 <button
                   type="submit"
                   disabled={uploading}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50"
+                  className="px-4 py-2 bg-[#00baff] text-white rounded-md hover:bg-[#0099cc] disabled:opacity-50"
                 >
                   {uploading ? 'Creating...' : 'Create'}
                 </button>
@@ -1575,7 +1575,7 @@ export default function LearningPage() {
                   type="text"
                   value={resourceName}
                   onChange={(e) => setResourceName(e.target.value)}
-                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
                   required
                   disabled={uploading}
                 />
@@ -1588,7 +1588,7 @@ export default function LearningPage() {
                   type="file"
                   accept="video/*"
                   onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 disabled:opacity-50"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100 disabled:opacity-50"
                   required
                   disabled={uploading}
                 />
@@ -1606,7 +1606,7 @@ export default function LearningPage() {
                   type="file"
                   accept="image/*"
                   onChange={(e) => setThumbnailFile(e.target.files?.[0] || null)}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 disabled:opacity-50"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100 disabled:opacity-50"
                   disabled={uploading}
                 />
                 {thumbnailFile && (
@@ -1618,9 +1618,9 @@ export default function LearningPage() {
 
               {/* Upload Status */}
               {uploading && (
-                <div className="mb-4 space-y-2 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
-                  <div className="flex items-center gap-2 text-sm font-medium text-indigo-900">
-                    <Spinner className="h-4 w-4 text-indigo-600" />
+                <div className="mb-4 space-y-2 p-4 bg-sky-50 rounded-lg border border-sky-200">
+                  <div className="flex items-center gap-2 text-sm font-medium text-[#00baff]">
+                    <Spinner className="h-4 w-4 text-[#00baff]" />
                     <span>Uploading resource...</span>
                   </div>
 
@@ -1629,8 +1629,8 @@ export default function LearningPage() {
                       <div className="flex items-center gap-2 text-sm">
                         {uploadStep === 'video' ? (
                           <>
-                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
-                            <span className="text-indigo-700">Uploading video...</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#00baff] animate-pulse" />
+                            <span className="text-[#0099cc]">Uploading video...</span>
                           </>
                         ) : (uploadStep === 'thumbnail' || uploadStep === 'resource' || uploadStep === 'complete') ? (
                           <>
@@ -1652,8 +1652,8 @@ export default function LearningPage() {
                       <div className="flex items-center gap-2 text-sm">
                         {uploadStep === 'thumbnail' ? (
                           <>
-                            <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
-                            <span className="text-indigo-700">Uploading thumbnail...</span>
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#00baff] animate-pulse" />
+                            <span className="text-[#0099cc]">Uploading thumbnail...</span>
                           </>
                         ) : (uploadStep === 'resource' || uploadStep === 'complete') ? (
                           <>
@@ -1674,8 +1674,8 @@ export default function LearningPage() {
                     <div className="flex items-center gap-2 text-sm">
                       {uploadStep === 'resource' ? (
                         <>
-                          <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
-                          <span className="text-indigo-700">Creating resource...</span>
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#00baff] animate-pulse" />
+                          <span className="text-[#0099cc]">Creating resource...</span>
                         </>
                       ) : uploadStep === 'complete' ? (
                         <>
@@ -1715,7 +1715,7 @@ export default function LearningPage() {
                 <button
                   type="submit"
                   disabled={uploading}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-4 py-2 bg-[#00baff] text-white rounded-md hover:bg-[#0099cc] disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {uploading && (
                     <Spinner className="h-4 w-4 text-white" />

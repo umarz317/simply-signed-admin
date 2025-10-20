@@ -5,6 +5,11 @@ import { AdminShell } from "./components/AdminShell";
 export const metadata: Metadata = {
   title: "Simply Signed Admin",
   description: "Admin panel for Simply Signed content management",
+  icons: {
+    icon: '/favico.png',
+    shortcut: '/favico.png',
+    apple: '/favico.png',
+  },
 };
 
 export default function RootLayout({

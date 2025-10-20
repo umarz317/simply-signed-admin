@@ -46,7 +46,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="flex h-[60vh] flex-col items-center justify-center gap-3">
-        <Spinner className="h-12 w-12 text-indigo-600" />
+        <Spinner className="h-12 w-12 text-[#00baff]" />
         <div className="text-sm font-semibold text-gray-700">Preparing your dashboard</div>
         <p className="text-xs text-gray-500">Fetching the latest learning progress and user insights…</p>
       </div>
@@ -78,7 +78,7 @@ export default function Home() {
     .map((item: DistributionBucket) => ({
       name: `Age ${item._id}`,
       value: item.count,
-      color: '#6366f1'
+      color: '#06b6d4' // cyan-500 from logo
     }));
 
   const avgProgressValue = stats.progressStats?.avgProgressPerUser ?? 0;
@@ -100,13 +100,13 @@ export default function Home() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-        <div className="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg shadow-lg p-6 text-white">
+        <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-indigo-100 text-sm font-medium">Total Users</p>
+              <p className="text-orange-100 text-sm font-medium">Total Users</p>
               <p className="text-3xl font-bold mt-2">{stats.totalUsers}</p>
             </div>
-            <div className="bg-indigo-400 bg-opacity-50 rounded-full p-3">
+            <div className="bg-orange-400 bg-opacity-50 rounded-full p-3">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
               </svg>
@@ -114,14 +114,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+        <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 text-sm font-medium">Avg Progress</p>
+              <p className="text-green-100 text-sm font-medium">Avg Progress</p>
               <p className="text-3xl font-bold mt-2">{avgProgress}</p>
-              <p className="text-purple-200 text-xs mt-1">resources per user</p>
+              <p className="text-green-200 text-xs mt-1">resources per user</p>
             </div>
-            <div className="bg-purple-400 bg-opacity-50 rounded-full p-3">
+            <div className="bg-green-400 bg-opacity-50 rounded-full p-3">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
@@ -129,14 +129,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg shadow-lg p-6 text-white">
+        <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg shadow-lg p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-pink-100 text-sm font-medium">Completion Rate</p>
+              <p className="text-cyan-100 text-sm font-medium">Completion Rate</p>
               <p className="text-3xl font-bold mt-2">{completionRate}%</p>
-              <p className="text-pink-200 text-xs mt-1">average</p>
+              <p className="text-cyan-200 text-xs mt-1">average</p>
             </div>
-            <div className="bg-pink-400 bg-opacity-50 rounded-full p-3">
+            <div className="bg-cyan-400 bg-opacity-50 rounded-full p-3">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
@@ -144,14 +144,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg shadow-lg p-6 text-white">
+        <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg shadow-lg p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-amber-100 text-sm font-medium">Total Progress</p>
+              <p className="text-yellow-100 text-sm font-medium">Total Progress</p>
               <p className="text-3xl font-bold mt-2">{stats.progressStats?.totalProgress || 0}</p>
-              <p className="text-amber-200 text-xs mt-1">resources unlocked</p>
+              <p className="text-yellow-200 text-xs mt-1">resources unlocked</p>
             </div>
-            <div className="bg-amber-400 bg-opacity-50 rounded-full p-3">
+            <div className="bg-yellow-400 bg-opacity-50 rounded-full p-3">
               <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
                 <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -205,7 +205,7 @@ export default function Home() {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#6366f1" radius={[8, 8, 0, 0]} />
+                  <Bar dataKey="value" fill="#06b6d4" radius={[8, 8, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -226,23 +226,23 @@ export default function Home() {
           <div className="space-y-3">
             <a
               href="/stages"
-              className="block p-4 border-2 border-indigo-200 rounded-lg hover:border-indigo-400 hover:bg-indigo-50 transition-all group"
+              className="block p-4 border-2 border-orange-200 rounded-lg hover:border-orange-400 hover:bg-orange-50 transition-all group"
             >
-              <h4 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-600">Manage Stages</h4>
+              <h4 className="text-lg font-semibold text-gray-900 group-hover:text-orange-600">Manage Stages</h4>
               <p className="text-gray-600 text-sm mt-1">View and edit learning stages</p>
             </a>
             <a
               href="/categories"
-              className="block p-4 border-2 border-purple-200 rounded-lg hover:border-purple-400 hover:bg-purple-50 transition-all group"
+              className="block p-4 border-2 border-green-200 rounded-lg hover:border-green-400 hover:bg-green-50 transition-all group"
             >
-              <h4 className="text-lg font-semibold text-gray-900 group-hover:text-purple-600">Manage Categories</h4>
+              <h4 className="text-lg font-semibold text-gray-900 group-hover:text-green-600">Manage Categories</h4>
               <p className="text-gray-600 text-sm mt-1">Organize content categories</p>
             </a>
             <a
               href="/resources"
-              className="block p-4 border-2 border-pink-200 rounded-lg hover:border-pink-400 hover:bg-pink-50 transition-all group"
+              className="block p-4 border-2 border-cyan-200 rounded-lg hover:border-cyan-400 hover:bg-cyan-50 transition-all group"
             >
-              <h4 className="text-lg font-semibold text-gray-900 group-hover:text-pink-600">Manage Resources</h4>
+              <h4 className="text-lg font-semibold text-gray-900 group-hover:text-cyan-600">Manage Resources</h4>
               <p className="text-gray-600 text-sm mt-1">Update learning materials</p>
             </a>
           </div>

@@ -93,7 +93,7 @@ export default function StagesPage() {
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <a
                     href={`/categories?stage=${stage._id}`}
-                    className="text-indigo-600 hover:text-indigo-900 mr-4"
+                    className="text-[#00baff] hover:text-[#0099cc] mr-4"
                   >
                     View Categories
                   </a>

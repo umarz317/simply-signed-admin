@@ -306,6 +306,9 @@ export default function LearningPage() {
   const [categoryBeingEdited, setCategoryBeingEdited] = useState<Category | null>(null);
   const [categoryEditName, setCategoryEditName] = useState('');
   const [categoryEditThumbnailFile, setCategoryEditThumbnailFile] = useState<File | null>(null);
+  const [categoryEditColorBg, setCategoryEditColorBg] = useState('');
+  const [categoryEditColorPath, setCategoryEditColorPath] = useState('');
+  const [categoryEditColorDottedPath, setCategoryEditColorDottedPath] = useState('');
   const [savingCategory, setSavingCategory] = useState(false);
 
   // Delete confirmation modals
@@ -326,6 +329,9 @@ export default function LearningPage() {
   const [stagePathDynamic, setStagePathDynamic] = useState<File[]>([]);
   const [stagePathPivot, setStagePathPivot] = useState<File[]>([]);
   const [categoryName, setCategoryName] = useState('');
+  const [categoryColorBg, setCategoryColorBg] = useState('#ffffff');
+  const [categoryColorPath, setCategoryColorPath] = useState('#000000');
+  const [categoryColorDottedPath, setCategoryColorDottedPath] = useState('#000000');
   const [resourceName, setResourceName] = useState('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
@@ -532,11 +538,14 @@ export default function LearningPage() {
       const res = await authorizedFetch(`${API_BASE_URL}/api/upload/category`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: categoryName, stage: selectedStage })
+        body: JSON.stringify({ name: categoryName, stage: selectedStage, colorCodes: { bg: categoryColorBg, path: categoryColorPath, dottedPath: categoryColorDottedPath } })
       });
 
       if (res.ok) {
         setCategoryName('');
+        setCategoryColorBg('#ffffff');
+        setCategoryColorPath('#000000');
+        setCategoryColorDottedPath('#000000');
         setShowCategoryModal(false);
         loadCategories(selectedStage);
       }
@@ -711,6 +720,9 @@ export default function LearningPage() {
     setCategoryBeingEdited(category);
     setCategoryEditName(category.name);
     setCategoryEditThumbnailFile(null);
+    setCategoryEditColorBg(category.colorCodes?.bg || '');
+    setCategoryEditColorPath(category.colorCodes?.path || '');
+    setCategoryEditColorDottedPath(category.colorCodes?.dottedPath || '');
     setShowCategoryEditModal(true);
   }
 
@@ -719,6 +731,9 @@ export default function LearningPage() {
     setCategoryBeingEdited(null);
     setCategoryEditName('');
     setCategoryEditThumbnailFile(null);
+    setCategoryEditColorBg('');
+    setCategoryEditColorPath('');
+    setCategoryEditColorDottedPath('');
   }
 
   async function handleUpdateCategory(e: React.FormEvent) {
@@ -746,7 +761,12 @@ export default function LearningPage() {
       }
 
       const payload: Record<string, unknown> = {
-        name: categoryEditName
+        name: categoryEditName,
+        colorCodes: {
+          bg: categoryEditColorBg,
+          path: categoryEditColorPath,
+          dottedPath: categoryEditColorDottedPath,
+        },
       };
 
       if (thumbnailKey) {
@@ -1378,6 +1398,46 @@ export default function LearningPage() {
                 )}
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">Color Codes</label>
+                <div className="space-y-3">
+                  {[
+                    { label: 'Background', value: categoryEditColorBg, setter: setCategoryEditColorBg, fallback: '#ffffff' },
+                    { label: 'Path', value: categoryEditColorPath, setter: setCategoryEditColorPath, fallback: '#000000' },
+                    { label: 'Dotted Path', value: categoryEditColorDottedPath, setter: setCategoryEditColorDottedPath, fallback: '#000000' },
+                  ].map(({ label, value, setter, fallback }) => (
+                    <div key={label} className="flex items-center gap-3 rounded-lg border border-gray-200 p-2.5">
+                      <label className="relative cursor-pointer">
+                        <input
+                          type="color"
+                          value={value || fallback}
+                          onChange={(e) => setter(e.target.value)}
+                          className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                        />
+                        <div
+                          className="h-9 w-9 rounded-lg border-2 border-gray-200 shadow-sm"
+                          style={{ backgroundColor: value || fallback }}
+                        />
+                      </label>
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-gray-500 mb-0.5">{label}</label>
+                        <input
+                          type="text"
+                          value={value}
+                          onChange={(e) => setter(e.target.value)}
+                          placeholder={fallback}
+                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] text-sm py-1"
+                        />
+                      </div>
+                      <div
+                        className="hidden sm:block h-6 w-16 rounded-md"
+                        style={{ background: `linear-gradient(135deg, ${value || fallback}88, ${value || fallback})` }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               <div className="flex gap-3 justify-end">
                 <button
                   type="button"
@@ -1517,7 +1577,7 @@ export default function LearningPage() {
       {/* Category Modal */}
       {showCategoryModal && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+          <div className="bg-white rounded-lg p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-medium text-gray-900 mb-4">Create New Category</h3>
             <form onSubmit={handleCreateCategory}>
               <div className="mb-4">
@@ -1541,6 +1601,45 @@ export default function LearningPage() {
                     <option key={stage._id} value={stage._id}>{stage.name}</option>
                   ))}
                 </select>
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-3">Color Codes</label>
+                <div className="space-y-3">
+                  {[
+                    { label: 'Background', value: categoryColorBg, setter: setCategoryColorBg, fallback: '#ffffff' },
+                    { label: 'Path', value: categoryColorPath, setter: setCategoryColorPath, fallback: '#000000' },
+                    { label: 'Dotted Path', value: categoryColorDottedPath, setter: setCategoryColorDottedPath, fallback: '#000000' },
+                  ].map(({ label, value, setter, fallback }) => (
+                    <div key={label} className="flex items-center gap-3 rounded-lg border border-gray-200 p-2.5">
+                      <label className="relative cursor-pointer">
+                        <input
+                          type="color"
+                          value={value || fallback}
+                          onChange={(e) => setter(e.target.value)}
+                          className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                        />
+                        <div
+                          className="h-9 w-9 rounded-lg border-2 border-gray-200 shadow-sm"
+                          style={{ backgroundColor: value || fallback }}
+                        />
+                      </label>
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-gray-500 mb-0.5">{label}</label>
+                        <input
+                          type="text"
+                          value={value}
+                          onChange={(e) => setter(e.target.value)}
+                          placeholder={fallback}
+                          className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] text-sm py-1"
+                        />
+                      </div>
+                      <div
+                        className="hidden sm:block h-6 w-16 rounded-md"
+                        style={{ background: `linear-gradient(135deg, ${value || fallback}88, ${value || fallback})` }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="flex gap-3 justify-end">
                 <button

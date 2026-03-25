@@ -119,14 +119,23 @@ export default function CategoriesPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {category.colorCodes ? (
-                        <div className="flex gap-2">
-                          <div className="flex items-center gap-1">
-                            <div
-                              className="w-6 h-6 rounded border"
-                              style={{ backgroundColor: category.colorCodes.bg }}
-                            />
-                            <span className="text-xs">{category.colorCodes.bg}</span>
-                          </div>
+                        <div className="flex gap-3">
+                          {[
+                            { label: 'BG', value: category.colorCodes.bg },
+                            { label: 'Path', value: category.colorCodes.path },
+                            { label: 'Dotted', value: category.colorCodes.dottedPath },
+                          ].map(({ label, value }) => value ? (
+                            <div key={label} className="flex items-center gap-1.5">
+                              <div
+                                className="w-5 h-5 rounded border border-gray-200 shadow-sm"
+                                style={{ backgroundColor: value }}
+                              />
+                              <div className="flex flex-col">
+                                <span className="text-[10px] text-gray-400 leading-tight">{label}</span>
+                                <span className="text-xs font-mono">{value}</span>
+                              </div>
+                            </div>
+                          ) : null)}
                         </div>
                       ) : (
                         <span className="text-gray-400">No colors</span>

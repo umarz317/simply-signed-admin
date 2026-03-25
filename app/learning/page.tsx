@@ -1128,8 +1128,27 @@ export default function LearningPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{category.name}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{getStageName(selectedStage)}</td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {category.colorCodes && (
-                          <div className="w-8 h-8 rounded" style={{ backgroundColor: category.colorCodes.bg }} />
+                        {category.colorCodes ? (
+                          <div className="flex gap-3">
+                            {[
+                              { label: 'BG', value: category.colorCodes.bg },
+                              { label: 'Path', value: category.colorCodes.path },
+                              { label: 'Dotted', value: category.colorCodes.dottedPath },
+                            ].map(({ label, value }) => value ? (
+                              <div key={label} className="flex items-center gap-1.5">
+                                <div
+                                  className="w-5 h-5 rounded border border-gray-200 shadow-sm"
+                                  style={{ backgroundColor: value }}
+                                />
+                                <div className="flex flex-col">
+                                  <span className="text-[10px] text-gray-400 leading-tight">{label}</span>
+                                  <span className="text-xs font-mono">{value}</span>
+                                </div>
+                              </div>
+                            ) : null)}
+                          </div>
+                        ) : (
+                          <span className="text-xs text-gray-400">No colors</span>
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
@@ -1321,16 +1340,13 @@ export default function LearningPage() {
                   className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100"
                 />
                 {stageBeingEdited.thumbnail && (
-                  <div className="mt-2 flex items-center gap-3">
+                  <div className="mt-2">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={stageBeingEdited.thumbnail}
                       alt={`${stageBeingEdited.name} thumbnail`}
                       className="h-12 w-12 rounded object-cover border border-gray-200"
                     />
-                    <span className="text-xs text-gray-500 break-all">
-                      {stageBeingEdited.thumbnail}
-                    </span>
                   </div>
                 )}
               </div>
@@ -1384,16 +1400,13 @@ export default function LearningPage() {
                   className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-[#0099cc] hover:file:bg-sky-100"
                 />
                 {categoryBeingEdited.thumbnail && (
-                  <div className="mt-2 flex items-center gap-3">
+                  <div className="mt-2">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={categoryBeingEdited.thumbnail}
                       alt={`${categoryBeingEdited.name} thumbnail`}
                       className="h-12 w-12 rounded object-cover border border-gray-200"
                     />
-                    <span className="text-xs text-gray-500 break-all">
-                      {categoryBeingEdited.thumbnail}
-                    </span>
                   </div>
                 )}
               </div>

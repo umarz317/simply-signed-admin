@@ -333,6 +333,7 @@ export default function LearningPage() {
   const [categoryColorPath, setCategoryColorPath] = useState('#000000');
   const [categoryColorDottedPath, setCategoryColorDottedPath] = useState('#000000');
   const [resourceName, setResourceName] = useState('');
+  const [resourceOrder, setResourceOrder] = useState<number>(1);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -621,7 +622,8 @@ export default function LearningPage() {
           type: 'learning',
           category: selectedCategory,
           videoKey,
-          thumbnailKey
+          thumbnailKey,
+          order: resourceOrder
         })
       });
 
@@ -633,6 +635,7 @@ export default function LearningPage() {
       setUploadStep('complete');
 
       setResourceName('');
+      setResourceOrder(1);
       setVideoFile(null);
       setThumbnailFile(null);
       setShowResourceModal(false);
@@ -1691,6 +1694,21 @@ export default function LearningPage() {
                   required
                   disabled={uploading}
                 />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
+                <input
+                  type="number"
+                  value={resourceOrder}
+                  onChange={(e) => setResourceOrder(parseInt(e.target.value) || 1)}
+                  min="1"
+                  className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-sky-400 focus:border-[#00baff] sm:text-sm"
+                  required
+                  disabled={uploading}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Inserting before existing progress will show this resource as unread for affected users.
+                </p>
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">

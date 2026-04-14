@@ -19,6 +19,13 @@ export interface SignInSuccess {
   };
 }
 
+export interface AdminUserProfile {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  isAdmin?: boolean;
+}
+
 type SignInResponse = {
   token?: string;
   user?: SignInSuccess['user'];
@@ -63,6 +70,16 @@ export async function authorizedFetch(input: string, init?: RequestInit) {
   }
 
   return response;
+}
+
+export async function getCurrentUserProfile(): Promise<AdminUserProfile> {
+  const res = await authorizedFetch(`${API_URL}/api/user/getUser`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch current user');
+  }
+
+  const json = await res.json();
+  return (json?.data ?? json) as AdminUserProfile;
 }
 
 export interface Stage {

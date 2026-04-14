@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Mail, Lock, AlertCircle, LogIn } from 'lucide-react';
 import { signIn } from '@/lib/api';
-import { clearToken, getStoredToken, storeToken } from '@/lib/auth';
+import { clearToken, getStoredToken, storeToken, storeUser } from '@/lib/auth';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -30,6 +30,7 @@ export default function SignInPage() {
       const response = await signIn({ email: email.trim(), password });
       clearToken();
       storeToken(response.token);
+      storeUser(response.user ?? { email: email.trim() });
       router.replace('/');
       router.refresh();
     } catch (err) {

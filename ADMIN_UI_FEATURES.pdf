@@ -1,0 +1,251 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 2033 >>
+stream
+BT
+/F2 22 Tf
+1 0 0 1 56 736 Tm (Simply Signed Admin UI) Tj
+/F2 16 Tf
+1 0 0 1 56 688 Tm (Overview) Tj
+/F1 11 Tf
+1 0 0 1 56 654 Tm (The Simply Signed Admin UI is a web-based internal dashboard for managing learning) Tj
+1 0 0 1 56 639 Tm (content and reviewing high-level platform activity. It is designed for administrators) Tj
+1 0 0 1 56 624 Tm (who need a single place to maintain the educational structure, upload media, and) Tj
+1 0 0 1 56 609 Tm (monitor usage trends.) Tj
+1 0 0 1 56 579 Tm (The interface connects directly to the Simply Signed backend API and uses authenticated) Tj
+1 0 0 1 56 564 Tm (admin access before allowing content changes.) Tj
+/F2 16 Tf
+1 0 0 1 56 530 Tm (Core Purpose) Tj
+/F1 11 Tf
+1 0 0 1 56 496 Tm (The Admin UI supports four main jobs:) Tj
+1 0 0 1 64 466 Tm (1. Review dashboard statistics about users and learning progress.) Tj
+1 0 0 1 64 448 Tm (2. Manage the main learning structure: stages, categories, and learning resources.) Tj
+1 0 0 1 64 430 Tm (3. Manage the Quick Learning area: categories and resources.) Tj
+1 0 0 1 64 412 Tm (4. Browse other resource libraries such as avatars and prebuilt assets.) Tj
+/F2 16 Tf
+1 0 0 1 56 380 Tm (Access and Authentication) Tj
+/F1 11 Tf
+1 0 0 1 64 346 Tm (" Users sign in with an email address and password.) Tj
+1 0 0 1 64 328 Tm (" The UI stores a secure auth token in the browser for the active session.) Tj
+1 0 0 1 64 310 Tm (" The application redirects unauthenticated users back to the sign-in page.) Tj
+1 0 0 1 64 292 Tm (" Content editing actions rely on backend admin authorization.) Tj
+/F2 16 Tf
+1 0 0 1 56 260 Tm (Main Feature Areas) Tj
+/F2 13 Tf
+1 0 0 1 56 224 Tm (1. Dashboard) Tj
+/F1 11 Tf
+1 0 0 1 56 195 Tm (The home dashboard gives a quick operational summary of the platform.) Tj
+1 0 0 1 56 165 Tm (Available insights include:) Tj
+1 0 0 1 64 135 Tm (" Total users) Tj
+1 0 0 1 64 117 Tm (" Average progress per user) Tj
+1 0 0 1 64 99 Tm (" Overall completion rate) Tj
+1 0 0 1 64 81 Tm (" Total unlocked progress items) Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 1727 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 64 736 Tm (" Gender distribution chart) Tj
+1 0 0 1 64 718 Tm (" Age distribution chart) Tj
+1 0 0 1 56 690 Tm (This page is intended to give non-technical stakeholders a quick view of platform) Tj
+1 0 0 1 56 675 Tm (engagement and content usage.) Tj
+/F2 13 Tf
+1 0 0 1 56 643 Tm (2. Learning Management) Tj
+/F1 11 Tf
+1 0 0 1 56 614 Tm (The Learning section is the main content management workspace for the core learning) Tj
+1 0 0 1 56 599 Tm (experience.) Tj
+1 0 0 1 56 569 Tm (It supports:) Tj
+1 0 0 1 64 539 Tm (" Creating new stages) Tj
+1 0 0 1 64 521 Tm (" Editing existing stages) Tj
+1 0 0 1 64 503 Tm (" Deleting stages) Tj
+1 0 0 1 64 485 Tm (" Creating categories inside a selected stage) Tj
+1 0 0 1 64 467 Tm (" Editing categories) Tj
+1 0 0 1 64 449 Tm (" Deleting categories) Tj
+1 0 0 1 64 431 Tm (" Creating learning resources inside a selected category) Tj
+1 0 0 1 64 413 Tm (" Deleting learning resources) Tj
+1 0 0 1 56 385 Tm (For stages, the UI supports:) Tj
+1 0 0 1 64 355 Tm (" Stage name) Tj
+1 0 0 1 64 337 Tm (" Stage thumbnail upload) Tj
+1 0 0 1 64 319 Tm (" Color configuration) Tj
+1 0 0 1 64 301 Tm (" Path asset uploads for static, dynamic, and pivot assets) Tj
+1 0 0 1 56 273 Tm (For categories, the UI supports:) Tj
+1 0 0 1 64 243 Tm (" Category name) Tj
+1 0 0 1 64 225 Tm (" Category color configuration) Tj
+1 0 0 1 64 207 Tm (" Optional thumbnail update during editing) Tj
+1 0 0 1 56 179 Tm (For learning resources, the UI supports:) Tj
+1 0 0 1 64 149 Tm (" Resource title) Tj
+1 0 0 1 64 131 Tm (" Sort order) Tj
+1 0 0 1 64 113 Tm (" Video upload) Tj
+1 0 0 1 64 95 Tm (" Thumbnail upload) Tj
+1 0 0 1 64 77 Tm (" Category assignment) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 1844 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 56 736 Tm (The Learning area also includes:) Tj
+1 0 0 1 64 706 Tm (" Searchable stage selection) Tj
+1 0 0 1 64 688 Tm (" Searchable category selection) Tj
+1 0 0 1 64 670 Tm (" Tab-based navigation between stages, categories, and resources) Tj
+1 0 0 1 64 652 Tm (" Media preview support for uploaded content) Tj
+1 0 0 1 64 634 Tm (" Delete confirmation flows to reduce accidental removal) Tj
+/F2 13 Tf
+1 0 0 1 56 604 Tm (3. Quick Learning Management) Tj
+/F1 11 Tf
+1 0 0 1 56 575 Tm (The Quick Learning section is a dedicated management area for short-form or fast-access) Tj
+1 0 0 1 56 560 Tm (learning content.) Tj
+1 0 0 1 56 530 Tm (It supports:) Tj
+1 0 0 1 64 500 Tm (" Viewing all Quick Learning categories) Tj
+1 0 0 1 64 482 Tm (" Creating categories for Quick Learning) Tj
+1 0 0 1 64 464 Tm (" Editing category name and thumbnail) Tj
+1 0 0 1 64 446 Tm (" Deleting Quick Learning categories) Tj
+1 0 0 1 64 428 Tm (" Creating Quick Learning resources) Tj
+1 0 0 1 64 410 Tm (" Deleting Quick Learning resources) Tj
+1 0 0 1 56 382 Tm (For Quick Learning resources, the UI supports:) Tj
+1 0 0 1 64 352 Tm (" Resource title) Tj
+1 0 0 1 64 334 Tm (" Sort order) Tj
+1 0 0 1 64 316 Tm (" Video upload) Tj
+1 0 0 1 64 298 Tm (" Thumbnail upload) Tj
+1 0 0 1 64 280 Tm (" Assignment to a Quick Learning category) Tj
+1 0 0 1 56 252 Tm (This area also includes:) Tj
+1 0 0 1 64 222 Tm (" Category search) Tj
+1 0 0 1 64 204 Tm (" Resource listing by selected category) Tj
+1 0 0 1 64 186 Tm (" Upload progress states for media creation) Tj
+1 0 0 1 64 168 Tm (" Media preview support) Tj
+/F2 16 Tf
+1 0 0 1 56 136 Tm (Other Resources Section) Tj
+/F1 11 Tf
+1 0 0 1 56 102 Tm (The Other Resources section is primarily a browsing and review tool.) Tj
+1 0 0 1 56 72 Tm (It allows admins to view:) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 1899 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 64 726 Tm (" Learning resources by category) Tj
+1 0 0 1 64 708 Tm (" Avatar resources) Tj
+1 0 0 1 64 690 Tm (" Prebuild avatar resources) Tj
+1 0 0 1 56 662 Tm (This section is useful for reviewing existing asset libraries and verifying available) Tj
+1 0 0 1 56 647 Tm (content, but it is not currently the main editing workflow for content creation.) Tj
+/F2 16 Tf
+1 0 0 1 56 613 Tm (Navigation and Usability) Tj
+/F1 11 Tf
+1 0 0 1 56 579 Tm (The Admin UI includes:) Tj
+1 0 0 1 64 549 Tm (" Top-level navigation for all major sections) Tj
+1 0 0 1 64 531 Tm (" Responsive layout for desktop and mobile use) Tj
+1 0 0 1 64 513 Tm (" Loading states while data is being fetched) Tj
+1 0 0 1 64 495 Tm (" Empty states when no content is available) Tj
+1 0 0 1 64 477 Tm (" Clear action buttons for create, edit, delete, and sign out) Tj
+1 0 0 1 56 449 Tm (The interface is designed to be straightforward for day-to-day operational use by) Tj
+1 0 0 1 56 434 Tm (content or admin teams.) Tj
+/F2 16 Tf
+1 0 0 1 56 400 Tm (Backend-Connected Behavior) Tj
+/F1 11 Tf
+1 0 0 1 56 366 Tm (The Admin UI depends on the backend API for all live data and update actions.) Tj
+1 0 0 1 56 336 Tm (This includes:) Tj
+1 0 0 1 64 306 Tm (" Sign-in validation) Tj
+1 0 0 1 64 288 Tm (" Dashboard data) Tj
+1 0 0 1 64 270 Tm (" Stage, category, and resource retrieval) Tj
+1 0 0 1 64 252 Tm (" Media upload endpoints) Tj
+1 0 0 1 64 234 Tm (" Create, update, and delete operations) Tj
+1 0 0 1 56 206 Tm (Because of this, the Admin UI reflects the backends data structure and permissions) Tj
+1 0 0 1 56 191 Tm (model.) Tj
+/F2 16 Tf
+1 0 0 1 56 157 Tm (Current Scope Notes) Tj
+/F1 11 Tf
+1 0 0 1 56 123 Tm (At the moment, the Admin UI is focused on content operations and visibility rather than) Tj
+1 0 0 1 56 108 Tm (full user administration.) Tj
+1 0 0 1 56 78 Tm (Current emphasis:) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 1323 >>
+stream
+BT
+/F1 11 Tf
+1 0 0 1 64 736 Tm (" Content management) Tj
+1 0 0 1 64 718 Tm (" Resource uploads) Tj
+1 0 0 1 64 700 Tm (" Learning structure maintenance) Tj
+1 0 0 1 64 682 Tm (" Basic analytics and reporting) Tj
+1 0 0 1 56 654 Tm (Not currently presented as a primary feature in this UI:) Tj
+1 0 0 1 64 624 Tm (" Admin account creation from the interface) Tj
+1 0 0 1 64 606 Tm (" Advanced role management) Tj
+1 0 0 1 64 588 Tm (" Detailed user account administration) Tj
+1 0 0 1 64 570 Tm (" Workflow approvals or publishing states) Tj
+/F2 16 Tf
+1 0 0 1 56 538 Tm (Intended Audience) Tj
+/F1 11 Tf
+1 0 0 1 56 504 Tm (This product is best suited for:) Tj
+1 0 0 1 64 474 Tm (" Internal administrators) Tj
+1 0 0 1 64 456 Tm (" Content managers) Tj
+1 0 0 1 64 438 Tm (" Operations staff) Tj
+1 0 0 1 64 420 Tm (" Stakeholders who need a simple reporting view of platform usage) Tj
+/F2 16 Tf
+1 0 0 1 56 388 Tm (Summary) Tj
+/F1 11 Tf
+1 0 0 1 56 354 Tm (The Simply Signed Admin UI provides a practical admin workspace for maintaining the) Tj
+1 0 0 1 56 339 Tm (learning platform. Its strongest value is centralized content management across the) Tj
+1 0 0 1 56 324 Tm (core Learning and Quick Learning experiences, supported by dashboard reporting and a) Tj
+1 0 0 1 56 309 Tm (clear navigation structure.) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R] /Count 5 >>
+endobj
+14 0 obj
+<< /Type /Catalog /Pages 13 0 R >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000000154 00000 n 
+0000002239 00000 n 
+0000002376 00000 n 
+0000004155 00000 n 
+0000004292 00000 n 
+0000006188 00000 n 
+0000006325 00000 n 
+0000008276 00000 n 
+0000008414 00000 n 
+0000009790 00000 n 
+0000009929 00000 n 
+0000010013 00000 n 
+trailer
+<< /Size 15 /Root 14 0 R >>
+startxref
+10064
+%%EOF
